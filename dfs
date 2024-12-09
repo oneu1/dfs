@@ -1,0 +1,36 @@
+function topologicalSortDFS(graph)
+    n = size(graph, 1);
+    visited = zeros(1, n);
+    stack = [];
+
+    for i = 1:n
+        if visited(i) == 0 then
+            dfs(graph, i, visited, stack);
+        end
+    end
+
+    disp("Topological Sort:");
+    disp(stack);
+endfunction
+
+function dfs(graph, node, visited, stack)
+    visited(node) = 1;
+
+    for i = 1:size(graph, 1)
+        if graph(node, i) == 1 & visited(i) == 0 then
+            dfs(graph, i, visited, stack);
+        end
+    end
+
+    stack = [node, stack];
+endfunction
+
+graph = [
+    0, 1, 0, 0, 0;
+    0, 0, 1, 1, 0;
+    0, 0, 0, 0, 1;
+    0, 0, 0, 0, 0;
+    0, 0, 0, 0, 0
+];
+
+topologicalSortDFS(graph);
